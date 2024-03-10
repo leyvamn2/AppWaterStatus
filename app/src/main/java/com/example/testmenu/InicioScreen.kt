@@ -50,23 +50,28 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.testmenu.data.MenuItem
+import com.example.testmenu.data.item_MainMenu
+//import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 //import androidx.navigation.compose.rememberNavController
 
 
 
 @Composable
-fun PantallaPrincipal(navController: NavController) {
+fun PantallaPrincipal() {
     Box(modifier = Modifier.fillMaxSize()){
         NavigationDrawer()
-        Content(navController )
+        //Content()
     }
 
 }
 
 @Composable
-fun Content(navController: NavController){
+fun Content(
+    detallesButtonClicked: () -> Unit = {},
+){
     Column (
         modifier = Modifier
             .padding(60.dp),
@@ -96,9 +101,7 @@ fun Content(navController: NavController){
             """
                     This is an example of a scaffold. It uses the Scaffold composable's parameters to create a screen with a simple top app bar, bottom app bar, and floating action button.
 
-                    It also contains some basic inner content, such as this text.
-
-                    You have pressed the floating action button  times.
+                    
                 """.trimIndent()
         )
         Row(
@@ -106,9 +109,7 @@ fun Content(navController: NavController){
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = {
-                navController.navigate("DetallesSc")
-            }) {
+            Button(onClick = detallesButtonClicked) {
                 Text("Detalles")
             }
         }
@@ -123,35 +124,11 @@ fun Content(navController: NavController){
 @Composable
 fun NavigationDrawer(){
     val items = listOf(
-        MenuItem(
-            title = "Inicio",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-        ),
-        MenuItem(
-            title = "Detalles",
-            selectedIcon = Icons.Filled.Info,
-            unselectedIcon = Icons.Outlined.Info,
-
-            ),
-
-        MenuItem(
-            title = "Histórico",
-            selectedIcon = Icons.Filled.DateRange,
-            unselectedIcon = Icons.Outlined.DateRange,
-        ),
-
-        MenuItem(
-            title = "Tiempo Real",
-            selectedIcon = Icons.Filled.Refresh,
-            unselectedIcon = Icons.Outlined.Refresh,
-
-            ),
-        MenuItem(
-            title = "Configuración",
-            selectedIcon = Icons.Filled.Settings,
-            unselectedIcon = Icons.Outlined.Settings,
-        ),
+        item_MainMenu.inicio,
+        item_MainMenu.detalles,
+        item_MainMenu.historicos,
+        item_MainMenu.tiempo_Real,
+        item_MainMenu.configuracion
     )
 
     Surface(
@@ -175,7 +152,7 @@ fun NavigationDrawer(){
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-//                                            navController.navigate(item.route)
+                               // navController.navigate(item.route)
                                 selectedItemIndex = index
                                 scope.launch {
                                     drawerState.close()
@@ -189,11 +166,11 @@ fun NavigationDrawer(){
                                     contentDescription = item.title
                                 )
                             },
-                            badge = {
+                            /*badge = {
                                 item.badgeCount?.let {
                                     Text(text = item.badgeCount.toString())
                                 }
-                            },
+                            },*/
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                         )
@@ -233,7 +210,7 @@ fun NavigationDrawer(){
 
                 } ,
                 content = {
-
+                    Content()
 
                 }
 
