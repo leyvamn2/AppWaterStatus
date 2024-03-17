@@ -36,8 +36,8 @@ sealed class item_MainMenu(
     val unselectedIcon: ImageVector,
     val ruta: String
 ){
-    object inicio: item_MainMenu("inicio", Icons.Filled.Home,Icons.Outlined.Home, ruta = "")
-    object detalles: item_MainMenu("Detalles", Icons.Filled.Info,Icons.Outlined.Info, ruta = "")
+    object inicio: item_MainMenu("inicio", Icons.Filled.Home,Icons.Outlined.Home, ruta = "PantallaPrincipal")
+    object detalles: item_MainMenu("Detalles", Icons.Filled.Info,Icons.Outlined.Info, ruta = "pantallaPH")
     object historicos: item_MainMenu("Históricos", Icons.Filled.DateRange,Icons.Outlined.DateRange,ruta="")
     object tiempo_Real: item_MainMenu("Tiempo Real", Icons.Filled.Refresh,Icons.Outlined.Refresh,ruta="")
     object configuracion: item_MainMenu("Configuración", Icons.Filled.Settings,Icons.Outlined.Settings, ruta="")

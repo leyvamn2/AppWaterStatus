@@ -1,4 +1,4 @@
-package com.example.testmenu
+package com.example.testmenu.ui.detalles
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text

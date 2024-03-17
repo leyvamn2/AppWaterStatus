@@ -50,7 +50,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.testmenu.data.MenuItem
 import com.example.testmenu.data.item_MainMenu
 //import androidx.navigation.NavController
@@ -60,9 +62,9 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun PantallaPrincipal() {
+fun PantallaPrincipal(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()){
-        NavigationDrawer()
+        NavigationDrawer(navController)
         //Content()
     }
 
@@ -122,7 +124,93 @@ fun Content(
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NavigationDrawer(){
+
+fun NavigationDrawer(navController: NavHostController) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+        var selectedItemIndex by rememberSaveable {
+            mutableStateOf(0)
+        }
+        val items = listOf(
+            item_MainMenu.inicio,
+            item_MainMenu.detalles,
+            item_MainMenu.historicos,
+            item_MainMenu.tiempo_Real,
+            item_MainMenu.configuracion
+        )
+
+        ModalNavigationDrawer(
+            drawerContent = {
+                ModalDrawerSheet {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    items.forEachIndexed { index, item ->
+                        NavigationDrawerItem(
+                            label = {
+                                Text(text = item.title)
+                            },
+                            selected = index == selectedItemIndex,
+                            onClick = {
+                                navController.navigate(item.ruta)
+                                selectedItemIndex = index
+                                scope.launch {
+                                    drawerState.close()
+                                }
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = if (index == selectedItemIndex) {
+                                        item.selectedIcon
+                                    } else item.unselectedIcon,
+                                    contentDescription = item.title
+                                )
+                            },
+                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                        )
+                    }
+                }
+            },
+            drawerState = drawerState,
+        ) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(text = "Inicio")
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    drawerState.open()
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Menu"
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.smallTopAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                },
+                content = {
+                    Content()
+                }
+            )
+        }
+    }
+}
+
+/*
+fun NavigationDrawer(navController: NavHostController){
+    val navController= rememberNavController()
+
     val items = listOf(
         item_MainMenu.inicio,
         item_MainMenu.detalles,
@@ -152,7 +240,7 @@ fun NavigationDrawer(){
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-                               // navController.navigate(item.route)
+                                navController.navigate(item.ruta)
                                 selectedItemIndex = index
                                 scope.launch {
                                     drawerState.close()
@@ -210,7 +298,8 @@ fun NavigationDrawer(){
 
                 } ,
                 content = {
-                    Content()
+                    Content(navController::navigateToScreen)
+                }
 
                 }
 
@@ -218,4 +307,4 @@ fun NavigationDrawer(){
 
         }
     }
-}
+}*/
