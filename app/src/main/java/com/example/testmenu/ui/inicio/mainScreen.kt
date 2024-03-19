@@ -21,7 +21,7 @@ fun pantallainicio(){
 
     Column (
         modifier = Modifier
-            .padding(60.dp),
+            .padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
 
         ) {

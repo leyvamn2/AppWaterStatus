@@ -50,8 +50,8 @@ sealed class itemMainMenu(
 ){
     object inicio: itemMainMenu("Inicio", Icons.Filled.Refresh,"pantallaPrincipal")
     object detalles: itemMainMenu("Detalles", Icons.Filled.Info ,"pantallaPH")
-    object historicos: itemMainMenu("Históricos", Icons.Filled.DateRange,ruta="")
+    object historicos: itemMainMenu("Históricos", Icons.Filled.DateRange,ruta="historicos")
     object tiempo_Real: itemMainMenu("Tiempo Real", Icons.Filled.Refresh,ruta="")
-    object configuracion: itemMainMenu("Configuración", Icons.Filled.Settings,ruta="")
+    object configuracion: itemMainMenu("Configuración", Icons.Filled.Settings,ruta="configuracion")
 
 }
