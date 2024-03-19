@@ -14,10 +14,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.testmenu.CreateGaugeChart
+import com.example.testmenu.data.itemMainMenu
 
 @Composable
-fun pantallainicio(){
+fun pantallainicio(navController: NavController){
+
 
     Column (
         modifier = Modifier
@@ -56,7 +60,7 @@ fun pantallainicio(){
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick ={/*TODO*/}) {
+            Button(onClick ={navController.navigate(itemMainMenu.detalles.ruta)}) {
                 Text("Detalles")
             }
         }

@@ -41,7 +41,7 @@ fun NavigationHostInicio(navController: NavHostController){
     ){
         
         composable(itemMainMenu.inicio.ruta){
-            pantallainicio()
+            pantallainicio(navController)
         }
         composable(itemMainMenu.detalles.ruta){
             PantallaNavigationBarl()

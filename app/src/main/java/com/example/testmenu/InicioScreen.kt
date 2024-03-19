@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.ModalDrawer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -48,6 +49,8 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -84,6 +87,8 @@ fun Scaffoldtst() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     val navigationItems = listOf(
         itemMainMenu.inicio,
         itemMainMenu.detalles,
@@ -91,14 +96,13 @@ fun Scaffoldtst() {
         itemMainMenu.tiempo_Real,
         itemMainMenu.configuracion
     )
-    var selectedItemIndex by rememberSaveable {
-        mutableStateOf(0)
-    }
+    val topAppBarColors = TopAppBarDefaults.smallTopAppBarColors()
+
     Scaffold(
         scaffoldState= scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = "Inicio") },
+                title = { Text(text = getTitleForRoute(currentRoute)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -111,8 +115,12 @@ fun Scaffoldtst() {
                         )
                     }
                 }
+
+
             )
+
         },
+
         drawerContent = {
             Drawer(
                 scope,
@@ -161,7 +169,15 @@ fun Drawer(
 
     // Implement your drawer content here
 
-
+@Composable
+fun getTitleForRoute(route: String?): String {
+    return when (route) {
+        "pantallaPrincipal" -> "Inicio"
+        "pantallaPH" -> "Detalles"
+        // Agrega más casos según las rutas de tus pantallas
+        else -> "Inicio" // Por defecto
+    }
+}
 
 @Composable
 fun currentRoute(navController: NavHostController):String?{
@@ -182,8 +198,7 @@ fun DrawerItem(item: itemMainMenu,
                 else Color.Transparent)
             .clickable { onItemClick(item) }
     ) {
-        //Icon(painterResource(id=ind),
-          //  contentDescription = item.title)
+
         Spacer(modifier = Modifier.width(12.dp))
 
         Text(text=item.title,
