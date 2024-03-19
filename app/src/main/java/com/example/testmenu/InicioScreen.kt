@@ -3,6 +3,7 @@ package com.example.testmenu
 import android.annotation.SuppressLint
 import android.media.Image
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalDrawer
@@ -46,12 +48,16 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.TextButton
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.testmenu.data.MenuItem
 import com.example.testmenu.data.itemMainMenu
 import com.example.testmenu.data.items_MenuDetalles
+import com.example.testmenu.ui.detalles.currentRoute
 import com.example.testmenu.ui.inicio.pantallainicio
 import kotlinx.coroutines.CoroutineScope
 
@@ -135,9 +141,15 @@ fun Drawer(
             .fillMaxWidth(),
         contentScale = ContentScale.FillWidth
     )
+    Spacer(modifier = Modifier
+        .fillMaxWidth()
+        .height(15.dp))
+    val currenRoute= currentRoute(navController)
     Column {
         items.forEach { item ->
-            DrawerItem(item){
+            DrawerItem(item,
+                selected= currenRoute==item.ruta
+                ){
                 navController.navigate(item.ruta){
                     launchSingleTop=true
                 }
@@ -150,19 +162,30 @@ fun Drawer(
     // Implement your drawer content here
 
 
+
+@Composable
+fun currentRoute(navController: NavHostController):String?{
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
+}
 @Composable
 fun DrawerItem(item: itemMainMenu,
+               selected: Boolean,
                onItemClick: (itemMainMenu)-> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .padding(10.dp)
+            .padding(6.dp)
+            .clip(RoundedCornerShape(12))
+            .background(if(selected)MaterialTheme.colors.primaryVariant.copy(alpha = 0.25f)
+                else Color.Transparent)
             .clickable { onItemClick(item) }
     ) {
         //Icon(painterResource(id=ind),
           //  contentDescription = item.title)
         Spacer(modifier = Modifier.width(12.dp))
+
         Text(text=item.title,
             style = MaterialTheme.typography.body1)
     }
