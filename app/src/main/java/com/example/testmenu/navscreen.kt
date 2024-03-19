@@ -5,20 +5,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.testmenu.data.itemMainMenu
 import com.example.testmenu.data.item_MainMenu
 import com.example.testmenu.data.items_MenuDetalles
+import com.example.testmenu.ui.configuracion.configuracion
 import com.example.testmenu.ui.detalles.PantallaNavigationBarl
 import com.example.testmenu.ui.detalles.detalles_STD
 import com.example.testmenu.ui.detalles.detalles_Turbidez
 import com.example.testmenu.ui.detalles.detalles_pH
+import com.example.testmenu.ui.historicos.historicos
+import com.example.testmenu.ui.inicio.pantallainicio
 
-
-enum class tstScreen(@StringRes val title: Int) {
-    Start(title = R.string.app_name),
-    detalles(title = R.string.detalles),
-    historico(title = R.string.historico),
-    tiempoReal(title = R.string.tiempoReal)
-}
 
 @Composable
 fun NavigationHost(navController: NavHostController){
@@ -43,24 +40,24 @@ fun NavigationHostInicio(navController: NavHostController){
         startDestination= item_MainMenu.inicio.ruta
     ){
         
-        composable(item_MainMenu.inicio.ruta){
-            PantallaPrincipal(navController)
+        composable(itemMainMenu.inicio.ruta){
+            pantallainicio()
         }
-        composable(item_MainMenu.detalles.ruta){
+        composable(itemMainMenu.detalles.ruta){
             PantallaNavigationBarl()
         }
-        /*
+
         composable(item_MainMenu.historicos.ruta){
-           /*TODO*/
+           historicos()
         }
-        composable(item_MainMenu.tiempo_Real.ruta){
-            /*TODO*/
-        }
+        //composable(item_MainMenu.tiempo_Real.ruta){
+          //  /*TODO*/
+        //}
         composable(item_MainMenu.configuracion.ruta){
-            /*TODO*/
+            configuracion()
         }
 
-         */
+
     }
 }
 
