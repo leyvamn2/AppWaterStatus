@@ -39,7 +39,7 @@ sealed class item_MainMenu(
     object inicio: item_MainMenu("Inicio", Icons.Filled.Home,Icons.Outlined.Home, ruta = "pantallaPrincipal")
     object detalles: item_MainMenu("Detalles", Icons.Filled.Info,Icons.Outlined.Info, ruta = "pantallaPH")
     object historicos: item_MainMenu("Históricos", Icons.Filled.DateRange,Icons.Outlined.DateRange,ruta="historicos")
-    object tiempo_Real: item_MainMenu("Tiempo Real", Icons.Filled.Refresh,Icons.Outlined.Refresh,ruta="")
+    object tiempo_Real: item_MainMenu("Tiempo Real", Icons.Filled.Refresh,Icons.Outlined.Refresh,ruta="tiempoReal")
     object configuracion: item_MainMenu("Configuración", Icons.Filled.Settings,Icons.Outlined.Settings, ruta="configuracion")
 
 }
@@ -51,7 +51,7 @@ sealed class itemMainMenu(
     object inicio: itemMainMenu("Inicio", Icons.Filled.Refresh,"pantallaPrincipal")
     object detalles: itemMainMenu("Detalles", Icons.Filled.Info ,"pantallaPH")
     object historicos: itemMainMenu("Históricos", Icons.Filled.DateRange,ruta="historicos")
-    object tiempo_Real: itemMainMenu("Tiempo Real", Icons.Filled.Refresh,ruta="")
+    object tiempo_Real: itemMainMenu("Tiempo Real", Icons.Filled.Refresh,ruta="tiempoReal")
     object configuracion: itemMainMenu("Configuración", Icons.Filled.Settings,ruta="configuracion")
 
 }

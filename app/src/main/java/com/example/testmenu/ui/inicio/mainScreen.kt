@@ -46,15 +46,21 @@ fun pantallainicio(navController: NavController){
             verticalAlignment = Alignment.CenterVertically){
             CreateGaugeChart()
         }
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text =
-            """
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically){
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text =
+                """
                     This is an example of a scaffold. It uses the Scaffold composable's parameters to create a screen with a simple top app bar, bottom app bar, and floating action button.
 
                     
                 """.trimIndent()
-        )
+            )
+
+        }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,

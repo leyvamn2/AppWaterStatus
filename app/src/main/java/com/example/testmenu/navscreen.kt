@@ -15,6 +15,7 @@ import com.example.testmenu.ui.detalles.detalles_Turbidez
 import com.example.testmenu.ui.detalles.detalles_pH
 import com.example.testmenu.ui.historicos.historicos
 import com.example.testmenu.ui.inicio.pantallainicio
+import com.example.testmenu.ui.tiempo_real.main_tiemporeal
 
 
 @Composable
@@ -50,9 +51,9 @@ fun NavigationHostInicio(navController: NavHostController){
         composable(item_MainMenu.historicos.ruta){
            historicos()
         }
-        //composable(item_MainMenu.tiempo_Real.ruta){
-          //  /*TODO*/
-        //}
+        composable(item_MainMenu.tiempo_Real.ruta){
+            main_tiemporeal()
+        }
         composable(item_MainMenu.configuracion.ruta){
             configuracion()
         }
